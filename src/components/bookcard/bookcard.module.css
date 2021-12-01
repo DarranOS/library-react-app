@@ -6,6 +6,7 @@
   padding: 5% 5% 5% 5%;
   text-align: left;
   height: 100%;
+  box-shadow: 0 4px 8px #aaa;
 }
 
 .BookCardUnread {
@@ -29,4 +30,8 @@ h4 {
   color: #fff9fb;
   background-color: #c76d7e;
   border-radius: 15px;
+}
+
+.Italics {
+  font-style: italic;
 }

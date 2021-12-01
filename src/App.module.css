@@ -15,7 +15,7 @@
   grid-auto-flow: row;
   place-content: start center;
   grid-gap: 1em;
-  background-color: #5bc0eb;
+  /* background-color: #5bc0eb; */
   height: 100vh;
   grid-area: bookshelf;
   padding: 3vh 6vw;
