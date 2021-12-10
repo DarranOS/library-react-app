@@ -1,0 +1,22 @@
+$primary: #a35298;
+$secondary: #d986ce;
+$light: #f8f2f7;
+$dark: #5f3058;
+$success: #335938;
+$danger: #8f483d;
+$warning: #ffdd1f;
+$info: #9bedfd;
+
+.nav-link {
+  font-size: 1.1em;
+}
+
+.nav-link:active,
+.nav-link:hover,
+.nav-link:focus {
+  background-color: white;
+}
+
+// IMport bootstrap at the bottom
+
+@import "~bootstrap/scss/bootstrap.scss";

@@ -1,52 +1,45 @@
 import React, { useState, useEffect } from "react";
-import Bookcard from "./components/bookcard/bookcard";
-import InputNewForm from "./components/inputNewForm/inputNewForm";
-import classes from "./App.module.css";
-import { db } from "./firebase-config";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
+import { db, collection, onSnapshot } from "./firebase-config";
+import "bootstrap/dist/css/bootstrap.css";
+import "./App.scss";
+import { Bookshelf } from "./components/Bookshelf/Bookshelf";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 function App() {
-  const [books, setBooks] = useState("");
-  const booksCollectionRef = collection(db, "books");
+  const [books, setBooks] = useState([{ name: "Loading...", id: "initial" }]);
+  const [navActive, setNavActive] = useState(true);
 
-  useEffect(() => {
-    const getBooks = async () => {
-      const data = await getDocs(booksCollectionRef);
-      setBooks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      console.log(books);
-    };
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "books"), (snapshot) =>
+        setBooks(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      ),
+    []
+  );
 
-    getBooks();
-  }, []);
+  const toggleMenu = () => {
+    setNavActive(!navActive);
+  };
 
   return (
-    <div className={classes.App}>
-      <div className={classes.Grid}>
-        <React.Fragment>
-          <div className={classes.Sidebar}>
-            <InputNewForm />
-            <p>Built for Odin Project</p>
-            <p>React JS</p>
-            <p>Bootstrap</p>
-            <p>Firebase</p>
+    <div className="container-fluid m-0 p-0 vh-100">
+      <div className="row m-0 p-0 g-0">
+        {navActive ? (
+          <div className="col col-4 p-2">
+            <Sidebar />
           </div>
-          <div className={classes.Bookshelf}>
-            {books
-              ? books.map((book) => (
-                  <div>
-                    <Bookcard {...book} />
-                  </div>
-                ))
-              : null}
+        ) : null}
+
+        <div className="col vh-100 w-100 m-0 p-2">
+          <button className="btn btn-link btn-success" onClick={toggleMenu}>
+            Toggle Menu
+          </button>
+          <hr />
+
+          <div className="container-fluid vh-100 w-100 p-1 m-0">
+            {books ? <Bookshelf books={books} /> : "No Books found"}
           </div>
-        </React.Fragment>
+        </div>
       </div>
     </div>
   );

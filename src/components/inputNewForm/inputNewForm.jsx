@@ -1,19 +1,12 @@
 import React, { useState } from "react";
-import { db } from "../../firebase-config";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
+import { db, collection, addDoc } from "../../firebase-config";
+import "./inputNewForm.css";
 
 const InputNewForm = (props) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [pages, setPages] = useState(0);
-  const [read, setRead] = useState("");
+  const [read, setRead] = useState("true");
 
   const booksCollectionRef = collection(db, "books");
 
@@ -26,43 +19,27 @@ const InputNewForm = (props) => {
     });
   };
 
-  const updateBook = async (id, pages) => {
-    const newFields = { pages: pages + 100 };
-    const bookDoc = doc(db, "books", id);
-    await updateDoc(bookDoc, newFields);
-  };
-
-  const deleteBook = async (id) => {
-    const bookDoc = doc(db, "books", id);
-    await deleteDoc(bookDoc);
-  };
-
   return (
-    <div>
+    <div className="sidebar-nav">
       <input placeholder="Title" onChange={(event) => setTitle(event.target.value)} />
       <input placeholder="Author" onChange={(event) => setAuthor(event.target.value)} />
       <input
         placeholder="Page Count"
         onChange={(event) => setPages(event.target.value)}
       />
-      <input
-        placeholder="Have you read?"
-        onChange={(event) => setRead(event.target.value)}
-      />
+      <label htmlFor="read">Have you read it?</label>
+      <select id="read" onChange={(event) => setRead(event.target.value)}>
+        <option value="true">Yes</option>
+        <option value="false">Not yet</option>
+      </select>
 
       <button
+        className="btn btn-info"
         onClick={() => {
-          updateBook(props.id, props.pages);
+          addBook(props.id, props.pages);
         }}
       >
-        Edit Book
-      </button>
-      <button
-        onClick={() => {
-          deleteBook(props.id, props.pages);
-        }}
-      >
-        Delete Book
+        Add Book
       </button>
     </div>
   );
