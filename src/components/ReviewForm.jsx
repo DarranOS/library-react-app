@@ -7,6 +7,8 @@ import { Button, Container, Form, Col, Row, InputGroup } from 'react-bootstrap'
 
 function ReviewForm() {
   const [text, setText] = useState('')
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
   const [rating, setRating] = useState(8)
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [message, setMessage] = useState('')
@@ -35,14 +37,42 @@ function ReviewForm() {
     setText(e.target.value)
   }
 
+  const handleTitleChange = (e) => {
+    console.log()
+    if (title === '') {
+      setBtnDisabled(true)
+      setMessage(null)
+    } else if (text !== '' && text.trim().length <= 10) {
+      setBtnDisabled(true)
+    } else {
+      setMessage(null)
+      setBtnDisabled(false)
+    }
+    setTitle(e.target.value)
+  }
+  const handleAuthorChange = (e) => {
+    console.log()
+    if (author === '') {
+      setBtnDisabled(true)
+      setMessage(null)
+    } else if (text !== '' && text.trim().length <= 10) {
+      setBtnDisabled(true)
+    } else {
+      setMessage(null)
+      setBtnDisabled(false)
+    }
+    setAuthor(e.target.value)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(e.target.value)
 
     if (text.trim().length > 10) {
       const newReview = {
         text,
         rating,
+        title,
+        author,
       }
 
       if (reviewEdit.edit === true) {
@@ -51,6 +81,8 @@ function ReviewForm() {
         addReview(newReview)
       }
       setText('')
+      setAuthor('')
+      setTitle('')
     }
   }
 
@@ -58,17 +90,29 @@ function ReviewForm() {
     <Card>
       <Container>
         <div className="p-4">
-          <h2 className="mb-4">
-            How did you
-            <span className="text-primary"> like the </span>
-            book
-          </h2>
+          <h2 className="mb-4 text-dark">Recommend your favourite coding book!</h2>
 
           <Form className="m-4 p-5" onSubmit={handleSubmit}>
             <RatingSelect select={(rating) => setRating(rating)} />
             <Row className="mt-4">
               <Col>
                 <Form.Group>
+                  <InputGroup>
+                    <Form.Control
+                      name="reviewTitle"
+                      placeholder="Book Title"
+                      onChange={handleTitleChange}
+                      value={title}
+                      type="text"
+                    />
+                    <Form.Control
+                      name="reviewAuthor"
+                      placeholder="Author's Name"
+                      onChange={handleAuthorChange}
+                      value={author}
+                      type="text"
+                    />
+                  </InputGroup>
                   <InputGroup>
                     <Form.Control
                       name="reviewForm"

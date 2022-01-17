@@ -20,8 +20,8 @@ function RatingSelect({ select }) {
     <Container>
       <Form>
         <Row>
-          {[1, 2, 3, 4, 5, 6].map((number) => (
-            <Col>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
+            <Col xs={3}>
               <Form.Check
                 inline
                 onChange={handleChange}
@@ -34,24 +34,6 @@ function RatingSelect({ select }) {
               />
             </Col>
           ))}
-        </Row>
-        <Row>
-          <Col></Col>
-          {[7, 8, 9, 10].map((number) => (
-            <Col>
-              <Form.Check
-                inline
-                onChange={handleChange}
-                checked={selected === number}
-                name="rating"
-                type="radio"
-                id={`num${number}`}
-                label={number}
-                value={number}
-              />
-            </Col>
-          ))}
-          <Col></Col>
         </Row>
       </Form>
     </Container>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { FaTimes, FaEdit } from 'react-icons/fa'
 import { useContext } from 'react'
 import ReviewContext from '../context/ReviewContext'
-import { Card, Button, Badge } from 'react-bootstrap'
+import { Card, Button, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
 
 function ReviewItem({ review }) {
   const { deleteReview, editReview } = useContext(ReviewContext)
@@ -13,7 +13,7 @@ function ReviewItem({ review }) {
     <Card border="danger" className="my-4">
       <Badge
         bg="primary"
-        className="num-display text-light"
+        className="num-display text-dark"
         style={{
           position: 'absolute',
           top: '-1rem',
@@ -27,20 +27,22 @@ function ReviewItem({ review }) {
         {review.rating}
       </Badge>
       <Card.Body>
-        <Card.Title>Card Title</Card.Title>
+        <Card.Title className="px-4"> {review.title}</Card.Title>
+        <Card.Subtitle className="mb-4 text-muted"> by {review.author}</Card.Subtitle>
         <Card.Text className="text-display">{review.text}</Card.Text>
 
-        <Button onClick={() => editReview(review)} className="edit" variant="primary">
-          <FaEdit color="primary" />
-        </Button>
-
-        <Button
-          onClick={() => deleteReview(review.id)}
-          className="close"
-          variant="danger"
-        >
-          <FaTimes color="orange" />
-        </Button>
+        <DropdownButton title="Edit" id="bg-vertical-dropdown-1">
+          <Dropdown.Item eventKey="1" onClick={() => editReview(review)}>
+            Edit
+          </Dropdown.Item>
+          <Dropdown.Item
+            variant="danger"
+            eventKey="2"
+            onClick={() => deleteReview(review.id)}
+          >
+            Delete
+          </Dropdown.Item>
+        </DropdownButton>
       </Card.Body>
     </Card>
   )
