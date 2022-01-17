@@ -1,7 +1,7 @@
-$primary: #a35298;
+$primary: rgb(96, 219, 228);
 $secondary: #d986ce;
 $light: #f8f2f7;
-$dark: #5f3058;
+$dark: #040680;
 $success: #335938;
 $danger: #8f483d;
 $warning: #ffdd1f;
@@ -17,6 +17,20 @@ $info: #9bedfd;
   background-color: white;
 }
 
+.edit {
+  position: absolute;
+  right: 5rem;
+  top: 0;
+  padding: 1rem 2rem;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 1rem 2rem;
+}
+
 // IMport bootstrap at the bottom
 
-@import "~bootstrap/scss/bootstrap.scss";
+@import '~bootstrap/scss/bootstrap.scss';

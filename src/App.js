@@ -1,48 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { db, collection, onSnapshot } from "./firebase-config";
-import "bootstrap/dist/css/bootstrap.css";
-import "./App.scss";
-import { Bookshelf } from "./components/Bookshelf/Bookshelf";
-import Sidebar from "./components/Sidebar/Sidebar";
+import 'bootstrap/dist/css/bootstrap.css'
+import './App.scss'
+
+import Header from './components/Header'
+import ReviewList from './components/ReviewList'
+import ReviewStats from './components/ReviewStats'
+import ReviewForm from './components/ReviewForm'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import About from './pages/About'
+import AboutIconLink from './components/AboutIconLink'
+import { ReviewProvider } from './context/ReviewContext'
 
 function App() {
-  const [books, setBooks] = useState([{ name: "Loading...", id: "initial" }]);
-  const [navActive, setNavActive] = useState(true);
-
-  useEffect(
-    () =>
-      onSnapshot(collection(db, "books"), (snapshot) =>
-        setBooks(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      ),
-    []
-  );
-
-  const toggleMenu = () => {
-    setNavActive(!navActive);
-  };
-
   return (
-    <div className="container-fluid m-0 p-0 vh-100">
-      <div className="row m-0 p-0 g-0">
-        {navActive ? (
-          <div className="col col-4 p-2">
-            <Sidebar />
-          </div>
-        ) : null}
+    <ReviewProvider>
+      <Router>
+        <Header />
+        <div className="bg-dark container-fluid m-0 v-100 text-center pt-5">
+          <div className="container pt-2">
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={
+                  <>
+                    <ReviewForm />
+                    <ReviewStats />
+                    <ReviewList />
+                  </>
+                }
+              ></Route>
 
-        <div className="col vh-100 w-100 m-0 p-2">
-          <button className="btn btn-link btn-success" onClick={toggleMenu}>
-            Toggle Menu
-          </button>
-          <hr />
-
-          <div className="container-fluid vh-100 w-100 p-1 m-0">
-            {books ? <Bookshelf books={books} /> : "No Books found"}
+              <Route path="/about" element={<About />} />
+            </Routes>
           </div>
+          <AboutIconLink />
         </div>
-      </div>
-    </div>
-  );
+      </Router>
+    </ReviewProvider>
+  )
 }
 
-export default App;
+export default App

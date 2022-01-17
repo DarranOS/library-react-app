@@ -1,18 +1,18 @@
-import React from "react";
-import InputNewForm from "../inputNewForm/inputNewForm";
+import React from 'react'
+import InputNewForm from '../inputNewForm/inputNewForm'
 
-import odinLogo from "../../assets/img/odin-logo.svg";
-import reactLogo from "../../assets/img/react-logo.svg";
-import bootstrapLogo from "../../assets/img/bootstrap-logo.svg";
-import sassLogo from "../../assets/img/sass-logo.svg";
+import odinLogo from '../../assets/img/odin-logo.svg'
+import reactLogo from '../../assets/img/react-logo.svg'
+import bootstrapLogo from '../../assets/img/bootstrap-logo.svg'
+import sassLogo from '../../assets/img/sass-logo.svg'
 
 const Sidebar = () => {
   const iconStyle = {
-    width: "36px",
-    height: "36px",
-    marginRight: "12px",
-    padding: "3px",
-  };
+    width: '36px',
+    height: '36px',
+    marginRight: '12px',
+    padding: '3px',
+  }
 
   return (
     <nav className="navbar bg-light m-0 p-0 g-0 vh-100" id="sidebar">
@@ -87,7 +87,7 @@ const Sidebar = () => {
         </ul>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
