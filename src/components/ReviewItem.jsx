@@ -1,10 +1,7 @@
-// import { useState } from 'react'
-// import Card from './shared/Card'
 import PropTypes from 'prop-types'
-import { FaTimes, FaEdit } from 'react-icons/fa'
 import { useContext } from 'react'
 import ReviewContext from '../context/ReviewContext'
-import { Card, Button, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Card, Badge, DropdownButton, Dropdown } from 'react-bootstrap'
 
 function ReviewItem({ review }) {
   const { deleteReview, editReview } = useContext(ReviewContext)
